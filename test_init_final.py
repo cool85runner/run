@@ -3233,13 +3233,13 @@ class mainCog(commands.Cog):
 	async def brother2_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/형.mp3')
+		return await PlaySound(ctx.voice_client, './sound/절레절레.mp3')
 
 	@commands.command(name='!젤리바보')
 	async def brother2_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/형.mp3')
+		return await PlaySound(ctx.voice_client, './sound/젤리바보.mp3')
 			
 	@commands.command(name='!TJ', aliases=['!tj'])
 	async def TJ_(self, ctx):
