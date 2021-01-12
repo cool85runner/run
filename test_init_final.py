@@ -460,7 +460,7 @@ async def MakeSound(saveSTR, filename):
 	if aws_key != "" and aws_secret_key != "":
 		polly = boto3.client("polly", aws_access_key_id = aws_key, aws_secret_access_key = aws_secret_key, region_name = "eu-west-1")
 
-		s = '<speak><prosody rate="' + str(90) + '%">' +  saveSTR + '</prosody></speak>'
+		s = '<speak><prosody rate="' + str(100) + '%">' +  saveSTR + '</prosody></speak>'
 
 		response = polly.synthesize_speech(
 			TextType = "ssml",
@@ -3228,25 +3228,7 @@ class mainCog(commands.Cog):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/형.mp3')
-
-	@commands.command(name='!절레')
-	async def brother2_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/절레.mp3')
-
-	@commands.command(name='!젤리')
-	async def brother2_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/젤리.mp3')
-			
-	@commands.command(name='!떵꺼')
-	async def brother2_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/떵꺼.mp3')
-			
+	
 	@commands.command(name='!TJ', aliases=['!tj'])
 	async def TJ_(self, ctx):
 		if basicSetting[21] != "1":
