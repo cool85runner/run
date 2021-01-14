@@ -3414,25 +3414,7 @@ class mainCog(commands.Cog):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/77.mp3')
-					
-	@commands.command(name='!1시')
-	async def brother26W_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/1시.mp3')
-					
-	@commands.command(name='!9시')
-	async def brother26E_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/9시.mp3')
-					
-	@commands.command(name='!6시')
-	async def brother26R_(self, ctx):
-		if basicSetting[21] != "1":
-			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/6시.mp3')
-					
+									
 	@commands.command(name='!적')
 	async def brother26_(self, ctx):
 		if basicSetting[21] != "1":
@@ -3462,6 +3444,78 @@ class mainCog(commands.Cog):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/베르.mp3')
+								
+	@commands.command(name='!1시')
+	async def dddd01_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/1시.mp3')
+										
+	@commands.command(name='!2시')
+	async def dddd02_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/2시.mp3')
+												
+	@commands.command(name='!3시')
+	async def dddd03_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/3시.mp3')
+										
+	@commands.command(name='!4시')
+	async def dddd04_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/4시.mp3')
+										
+	@commands.command(name='!5시')
+	async def dddd05_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/5시.mp3')
+										
+	@commands.command(name='!6시')
+	async def dddd06_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/6시.mp3')
+										
+	@commands.command(name='!7시')
+	async def dddd07_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/7시.mp3')
+										
+	@commands.command(name='!8시')
+	async def dddd08_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/8시.mp3')
+										
+	@commands.command(name='!9시')
+	async def dddd09_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/9시.mp3')
+										
+	@commands.command(name='!10시')
+	async def dddd010_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/10시.mp3')
+										
+	@commands.command(name='!11시')
+	async def dddd011_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/11시.mp3')
+										
+	@commands.command(name='!12시')
+	async def dddd012_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/12시.mp3')
 														  
 	@commands.command(name='!TJ', aliases=['!tj'])
 	async def TJ_(self, ctx):
