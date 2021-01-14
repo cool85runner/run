@@ -3277,6 +3277,12 @@ class mainCog(commands.Cog):
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/월드.mp3')
 	
+	@commands.command(name='!가시죠')
+	async def brother9s_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/가시죠.mp3')
+	
 	@commands.command(name='!어서')
 	async def broth9_(self, ctx):
 		if basicSetting[21] != "1":
