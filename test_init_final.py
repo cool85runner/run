@@ -3283,11 +3283,11 @@ class mainCog(commands.Cog):
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/가시죠.mp3')
 	
-	@commands.command(name='!어서')
+	@commands.command(name='!어서오세요')
 	async def broth9_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/어서.mp3')
+		return await PlaySound(ctx.voice_client, './sound/어서오세요.mp3')
 	
 	@commands.command(name='!룻')
 	async def brother10_(self, ctx):
@@ -3295,17 +3295,23 @@ class mainCog(commands.Cog):
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/룻.mp3')
 	
-	@commands.command(name='!수고')
+	@commands.command(name='!조심하세요')
+	async def brother10q_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/조심하세요.mp3')
+	
+	@commands.command(name='!수고하세요')
 	async def brother11_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/수고.mp3')
+		return await PlaySound(ctx.voice_client, './sound/수고하세요.mp3')
 	
-	@commands.command(name='!살려')
+	@commands.command(name='!살려주세요')
 	async def brother12_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/살려.mp3')
+		return await PlaySound(ctx.voice_client, './sound/살려주세요.mp3')
 	
 	@commands.command(name='!바보')
 	async def brother13_(self, ctx):
@@ -3319,11 +3325,11 @@ class mainCog(commands.Cog):
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/천재.mp3')
 			
-	@commands.command(name='!머선')
+	@commands.command(name='!머선일이고')
 	async def brother15_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/머선.mp3')
+		return await PlaySound(ctx.voice_client, './sound/머선일이고.mp3')
 					
 	@commands.command(name='!칸')
 	async def brother16_(self, ctx):
@@ -3337,17 +3343,23 @@ class mainCog(commands.Cog):
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
 		return await PlaySound(ctx.voice_client, './sound/네.mp3')
 					
-	@commands.command(name='!잠시')
+	@commands.command(name='!아니요')
+	async def brother17c_(self, ctx):
+		if basicSetting[21] != "1":
+			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
+		return await PlaySound(ctx.voice_client, './sound/아니요.mp3')
+								
+	@commands.command(name='!잠시만요')
 	async def brother18_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/잠시.mp3')
+		return await PlaySound(ctx.voice_client, './sound/잠시만요.mp3')
 					
 	@commands.command(name='!대기')
 	async def brother19_(self, ctx):
 		if basicSetting[21] != "1":
 			return await ctx.send('```보이스를 사용하지 않도록 설정되어 있습니다.```', tts=False)
-		return await PlaySound(ctx.voice_client, './sound/대기.mp3')
+		return await PlaySound(ctx.voice_client, './sound/대기요.mp3')
 								
 	@commands.command(name='!잊섬')
 	async def brother20t_(self, ctx):
