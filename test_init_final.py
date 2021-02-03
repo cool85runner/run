@@ -965,10 +965,10 @@ class taskCog(commands.Cog):
 						self.checker = False
 						pass
 				
-				################ 킬 목록 초기화 ################ 
+				################ 참여자 목록 초기화 ################ 
 				if kill_Time.strftime('%Y-%m-%d ') + kill_Time.strftime('%H:%M') == now.strftime('%Y-%m-%d ') + now.strftime('%H:%M'):
 					kill_Time = kill_Time + datetime.timedelta(days=int(1))
-					await init_data_list('kill_list.ini', '-----척살명단-----')
+					await init_data_list('kill_list.ini', '-----명단-----')
 
 				################ 고정 보스 확인 ################ 
 				for i in range(fixed_bossNum):
