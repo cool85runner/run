@@ -2585,12 +2585,12 @@ class mainCog(commands.Cog):
 				await ctx.send( embed=embed, tts=False)
 
 			await dbSave()
-			await data_list_Save("kill_list.ini", "-----척살명단-----", kill_Data)
+			await data_list_Save("kill_list.ini", "-----참여자명단-----", kill_Data)
 			await data_list_Save("item_list.ini", "-----아이템목록-----", item_Data)
 		else:
 			return
 
-	################ 킬초기화 ################ 
+	################ 참여자초기화 ################ 
 	@commands.command(name=command[24][0], aliases=command[24][1:])
 	async def killInit_(self, ctx):
 		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
@@ -2601,12 +2601,12 @@ class mainCog(commands.Cog):
 
 			kill_Data = {}
 			
-			await init_data_list('kill_list.ini', '-----척살명단-----')
-			return await ctx.send( '< 킬 목록 초기화완료 >', tts=False)
+			await init_data_list('kill_list.ini', '-----참여자명단-----')
+			return await ctx.send( '< 참여자 목록 초기화완료 >', tts=False)
 		else:
 			return
 
-	################ 킬명단 확인 및 추가################ 
+	################ 참여자명단 확인 및 추가################ 
 	@commands.command(name=command[25][0], aliases=command[25][1:]) 
 	async def killList_(self, ctx, *, args : str = None):
 		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
@@ -2618,7 +2618,7 @@ class mainCog(commands.Cog):
 			if not args:
 				kill_output = ''
 				for key, value in kill_Data.items():
-					kill_output += ':skull_crossbones: ' + str(key) + ' : ' + str(value) + '번 따히!\n'
+					kill_output += ':skull_crossbones: ' + str(key) + ' : ' + str(value) + '번 !\n'
 
 				if kill_output != '' :
 					embed = discord.Embed(
@@ -2627,7 +2627,7 @@ class mainCog(commands.Cog):
 							)
 				else :
 					embed = discord.Embed(
-							description= '등록된 킬 목록이 없습니다. 분발하세요!',
+							description= '등록된 참여자 목록이 없습니다. 분발하세요!',
 							color=0xff00ff
 							)
 				return await ctx.send(embed=embed, tts=False)
@@ -2638,14 +2638,14 @@ class mainCog(commands.Cog):
 				kill_Data[args] = 1
 					
 			embed = discord.Embed(
-					description= ':skull_crossbones: ' + args + ' 따히! [' + str(kill_Data[args]) + '번]\n',
+					description= ':skull_crossbones: ' + args + ' ! [' + str(kill_Data[args]) + '번]\n',
 					color=0xff00ff
 					)
 			return await ctx.send(embed=embed, tts=False)
 		else:
 			return
 
-	################ 킬삭제 ################ 
+	################ 참여자삭제 ################ 
 	@commands.command(name=command[26][0], aliases=command[26][1:])
 	async def killDel_(self, ctx, *, args : str = None):
 		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
@@ -2661,11 +2661,11 @@ class mainCog(commands.Cog):
 				del kill_Data[args]
 				return await ctx.send( ':angel: ' + args + ' 삭제완료!', tts=False)
 			else :				
-				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+				return await ctx.send( '```참여자 목록에 등록되어 있지 않습니다!\n```', tts=False)
 		else:
 			return
 
-	################ 킬 차감 ################ 
+	################ 참여자 차감 ################ 
 	@commands.command(name=command[33][0], aliases=command[33][1:]) 
 	async def killSubtract_(self, ctx, *, args : str = None):
 		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
@@ -2693,11 +2693,11 @@ class mainCog(commands.Cog):
 
 			if kill_name in kill_Data:
 				if kill_Data[kill_name] < int(count):
-					return await ctx.send( f"등록된 킬 횟수[{str(kill_Data[kill_name])}번]보다 차감 횟수[{str(count)}번]가 많습니다. 킬 횟수에 맞게 재입력 바랍니다.", tts=False)
+					return await ctx.send( f"등록된 참여자 횟수[{str(kill_Data[kill_name])}번]보다 차감 횟수[{str(count)}번]가 많습니다. 참여자 횟수에 맞게 재입력 바랍니다.", tts=False)
 				else:
 					kill_Data[kill_name] -= int(count)
 			else:
-				return await ctx.send( '```킬 목록에 등록되어 있지 않습니다!\n```', tts=False)
+				return await ctx.send( '```참여자 목록에 등록되어 있지 않습니다!\n```', tts=False)
 					
 			embed = discord.Embed(
 					description= f':angel: [{kill_name}] [{str(count)}번] 차감 완료! [잔여 : {str(kill_Data[kill_name])}번]\n',
