@@ -1321,11 +1321,11 @@ class mainCog(commands.Cog):
 			command_list += ','.join(command[16]) + ' [할말]\n'     #!v
 			command_list += ','.join(command[17]) + '\n'     #!리젠
 			command_list += ','.join(command[18]) + '\n'     #!현재시간
-			command_list += ','.join(command[24]) + '\n'     #!킬초기화
-			command_list += ','.join(command[25]) + '\n'     #!킬횟수 확인
-			command_list += ','.join(command[25]) + ' [아이디]\n'     #!킬
-			command_list += ','.join(command[26]) + ' [아이디]\n'     #!킬삭제
-			command_list += ','.join(command[33]) + ' [아이디] 또는 ' + ','.join(command[33]) + ' [아이디] [횟수]\n'     #!킬차감
+			command_list += ','.join(command[24]) + '\n'     #!초기화
+			command_list += ','.join(command[25]) + '\n'     #!참횟수 확인
+			command_list += ','.join(command[25]) + ' [아이디]\n'     #!참
+			command_list += ','.join(command[26]) + ' [아이디]\n'     #!참삭제
+			command_list += ','.join(command[33]) + ' [아이디] 또는 ' + ','.join(command[33]) + ' [아이디] [횟수]\n'     #!참차감
 			command_list += ','.join(command[29]) + '\n'     #!아이템 목록 초기화
 			command_list += ','.join(command[30]) + '\n'     #!아이템 목록 확인
 			command_list += ','.join(command[30]) + ' [아이템] 또는 ' + ','.join(command[30]) + ' [아이템] [개수]\n'     #!아이템 목록 입력
