@@ -3545,7 +3545,7 @@ class mainCog(commands.Cog):
 		return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
 								  
 	################ 인원체크 ################ 
-	@commands.command(name=command[99][0], aliases=command[99][1:])
+	@commands.command(name=command[43][0], aliases=command[43][1:])
 	async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
 		if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
 			return
