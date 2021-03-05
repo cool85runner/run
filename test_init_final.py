@@ -3546,7 +3546,7 @@ class mainCog(commands.Cog):
 								  
 	################ 인원체크 ################ 
 	@commands.command(name=command[43][0], aliases=command[43][1:])
-	async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
+	async def command_randombox_gameeee(self, ctx : commands.Context, *, args : str = None):
 		if basicSetting[19] != "" and ctx.message.channel.id == basicSetting[7]:
 			return
 
