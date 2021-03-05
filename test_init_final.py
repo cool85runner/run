@@ -3646,9 +3646,6 @@ class mainCog(commands.Cog):
 		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
 		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
-		embed.add_field(name = f"😍 행운아 ({num_cong}명)", value =  f"{', '.join(result_users)}")
-		if len(lose_user) != 0:
-			embed.add_field(name = f"😭 참여자 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
 		return await game_message.edit(embed=embed)
 								  
 	################ 럭키박스 ################ 
