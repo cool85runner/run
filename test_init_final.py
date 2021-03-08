@@ -3621,7 +3621,7 @@ class mainCog(commands.Cog):
 			embed.description = ""
 			await game_message.edit(embed=embed)		
 			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
-				
+
 	####### V로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
@@ -3643,7 +3643,7 @@ class mainCog(commands.Cog):
 			result_users_by_first = random.sample(user_name_list_by_first, num_cong)
 
 		lose_user_by_first = list(set(user_name_list_by_first)-set(result_users_by_first))
-      
+
 	####### O로 체크한 사람들 #####
 		participant_users_by_second = await cache_msg.reactions[1].users().flatten()
 
@@ -3671,7 +3671,7 @@ class mainCog(commands.Cog):
 		embed.add_field(name = f" ✅ 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
 		embed.add_field(name = f" 🟢 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
 		return await game_message.edit(embed=embed)
-								  
+
 	################ 럭키박스 ################ 
 	@commands.command(name=command[41][0], aliases=command[41][1:])
 	async def command_randombox_game(self, ctx : commands.Context, *, args : str = None):
