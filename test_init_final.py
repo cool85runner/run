@@ -3778,7 +3778,7 @@ class mainCog(commands.Cog):
 		embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
 		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
 		return await game_message.edit(embed=embed)
-		    
+
 	################ ?????????????? ################ 
 	@commands.command(name='!오빠')
 	async def brother1_(self, ctx):
