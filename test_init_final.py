@@ -3622,6 +3622,18 @@ class mainCog(commands.Cog):
 			await game_message.edit(embed=embed)		
 			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
 
+		if cache_msg.reactions[1].count == 1:
+			embed.title = f"😫 인원체크! 실패! 😱"
+			embed.description = ""
+			await game_message.edit(embed=embed)
+			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
+
+		if num_cong >= cache_msg.reactions[1].count-1:
+			embed.title = f"😫 인원체크! 취소! 😱"
+			embed.description = ""
+			await game_message.edit(embed=embed)		
+			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
+
 	####### V로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
