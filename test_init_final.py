@@ -1406,7 +1406,7 @@ class mainCog(commands.Cog):
 			command_list += ','.join(command[12]) + ' [뽑을인원수] [아이디1] [아이디2]...\n'     #!사다리
 			command_list += ','.join(command[27]) + ' [아이디1] [아이디2]...(최대 12명)\n'     #!경주
 			command_list += ','.join(command[41]) + ' [추첨인원] (대기시간/초) *(메모)\n'    #!럭키박스
-			command_list += ','.join(command[43]) + ' [추첨인원] (대기시간/초) *(메모)\n'    #!인원체크
+			command_list += ','.join(command[43]) + ' (대기시간/초) *(메모)\n'    #!인원체크
 			command_list += ','.join(command[35]) + ' [판매금액] (거래소세금)\n'     #!수수료
 			command_list += ','.join(command[36]) + ' [거래소금액] [실거래금액] (거래소세금)\n'     #!페이백
 			command_list += ','.join(command[13]) + ' [아이디]\n'     #!정산
@@ -3554,7 +3554,7 @@ class mainCog(commands.Cog):
 			return
 
 		if not args:
-			return await ctx.send(f'```명령어 [추첨인원] (대기시간/초) *(메모) 형태로 입력해주시기 바랍나다.```')
+			return await ctx.send(f'```명령어 (대기시간/초) *(메모) 형태로 입력해주시기 바랍나다.```')
 
 		memo_data : str = ""
 		waiting_time : int = 30
@@ -3583,7 +3583,7 @@ class mainCog(commands.Cog):
 
 		reaction_emoji : list = ["✅", "🟢", "❌"]
 
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증을 하신다면 ✅ 나 🟢 를 클릭해주세요! ❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증은 ✅ 나 🟢 를 클릭해주세요!			❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
@@ -3783,7 +3783,7 @@ class mainCog(commands.Cog):
 
 		lose_user = list(set(user_name_list)-set(result_users))
 
-		embed.title = f"🎉 인원체크! 결과발표! 🎉"
+		embed.title = f"🎉 ! 결과발표! 🎉"
 		embed.description = ""
 		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
 		embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"{', '.join(result_users)}")
