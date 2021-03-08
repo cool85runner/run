@@ -3581,9 +3581,9 @@ class mainCog(commands.Cog):
 			except ValueError:
 				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!인원체크 1 60```')
 
-		reaction_emoji : list = ["✅", "⭕", "❌"]
+		reaction_emoji : list = ["✅", "🟢", "❌"]
 
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증을 하신다면 ✅ 나 ⭕ 를 클릭해주세요! ❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증을 하신다면 ✅ 나 🟢 를 클릭해주세요! ❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
@@ -3621,53 +3621,55 @@ class mainCog(commands.Cog):
 			embed.description = ""
 			await game_message.edit(embed=embed)		
 			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
+				
+####### V로 체크한 사람들 #####
+      participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
-		participant_users = await cache_msg.reactions[0].users().flatten() # V값
-								  
-		del_index : int = 0
-		for i, user in enumerate(participant_users):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users[del_index]
+      del_index : int = 0
+      for i, user in enumerate(participant_users_by_first):
+         if self.bot.user.id == user.id:
+            del_index = i
+      del participant_users_by_first[del_index]
 
-		user_name_list : list = []
-		for user in participant_users:
-			user_name_list.append(user.mention)
+      user_name_list_by_first : list = []
+      for user in participant_users_by_first:
+         user_name_list_by_first.append(user.mention)
 
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list)
+      for _ in range(num_cong + 5):
+         random.shuffle(user_name_list_by_first)
 
-		result_users = None
-		for _ in range(num_cong + 5):
-			result_users = random.sample(user_name_list, num_cong)
+      result_users_by_first = None
+      for _ in range(num_cong + 5):
+         result_users_by_first = random.sample(user_name_list_by_first, num_cong)
 
-		lose_user = list(set(user_name_list)-set(result_users))
-								  
-		participant_users = await cache_msg.reactions[1].users().flatten() # O값
-								  
-		del_index : int = 0
-		for i, user in enumerate(participant_users):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users[del_index]
+      lose_user_by_first = list(set(user_name_list_by_first)-set(result_users_by_first))
+      
+####### O로 체크한 사람들 #####
+      participant_users_by_second = await cache_msg.reactions[1].users().flatten()
 
-		user_name_list : list = []
-		for user in participant_users:
-			user_name_list.append(user.mention)
+      del_index : int = 0
+      for i, user in enumerate(participant_users_by_second):
+         if self.bot.user.id == user.id:
+            del_index = i
+      del participant_users_by_second[del_index]
 
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list)
+      user_name_list_by_second : list = []
+      for user in participant_users_by_second:
+         user_name_list_by_second.append(user.mention)
 
-		result_users = None
-		for _ in range(num_cong + 5):
-			result_users = random.sample(user_name_list, num_cong)
+      for _ in range(num_cong + 5):
+         random.shuffle(user_name_list_by_second)
 
-		lose_user = list(set(user_name_list)-set(result_users))
+      result_users_by_second = None
+      for _ in range(num_cong + 5):
+         result_users_by_second = random.sample(user_name_list_by_second, num_cong)
 
-		embed.title = f"🎉 인원체크! 결과발표! 🎉"
-		embed.description = ""
-		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
-		return await game_message.edit(embed=embed)
+      lose_user_by_second = list(set(user_name_list_by_second)-set(result_users_by_second))
+
+      embed.title = f"🎉 인원체크! 결과발표! 🎉"
+      embed.description = ""
+      embed.add_field(name = f" ✅ 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
+      embed.add_field(name = f" 🟢 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
 								  
 	################ 럭키박스 ################ 
 	@commands.command(name=command[41][0], aliases=command[41][1:])
@@ -3746,56 +3748,36 @@ class mainCog(commands.Cog):
 			embed.description = ""
 			await game_message.edit(embed=embed)		
 			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
-				
-####### V로 체크한 사람들 #####
-      participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
-      del_index : int = 0
-      for i, user in enumerate(participant_users_by_first):
-         if self.bot.user.id == user.id:
-            del_index = i
-      del participant_users_by_first[del_index]
+		participant_users = await cache_msg.reactions[0].users().flatten()
 
-      user_name_list_by_first : list = []
-      for user in participant_users_by_first:
-         user_name_list_by_first.append(user.mention)
+		del_index : int = 0
+		for i, user in enumerate(participant_users):
+			if self.bot.user.id == user.id:
+				del_index = i
+		del participant_users[del_index]
 
-      for _ in range(num_cong + 5):
-         random.shuffle(user_name_list_by_first)
+		user_name_list : list = []
+		for user in participant_users:
+			user_name_list.append(user.mention)
 
-      result_users_by_first = None
-      for _ in range(num_cong + 5):
-         result_users_by_first = random.sample(user_name_list_by_first, num_cong)
+		for _ in range(num_cong + 5):
+			random.shuffle(user_name_list)
 
-      lose_user_by_first = list(set(user_name_list_by_first)-set(result_users_by_first))
-      
-####### O로 체크한 사람들 #####
-      participant_users_by_second = await cache_msg.reactions[1].users().flatten()
+		result_users = None
+		for _ in range(num_cong + 5):
+			result_users = random.sample(user_name_list, num_cong)
 
-      del_index : int = 0
-      for i, user in enumerate(participant_users_by_second):
-         if self.bot.user.id == user.id:
-            del_index = i
-      del participant_users_by_second[del_index]
+		lose_user = list(set(user_name_list)-set(result_users))
 
-      user_name_list_by_second : list = []
-      for user in participant_users_by_second:
-         user_name_list_by_second.append(user.mention)
-
-      for _ in range(num_cong + 5):
-         random.shuffle(user_name_list_by_second)
-
-      result_users_by_second = None
-      for _ in range(num_cong + 5):
-         result_users_by_second = random.sample(user_name_list_by_second, num_cong)
-
-      lose_user_by_second = list(set(user_name_list_by_second)-set(result_users_by_second))
-
-      embed.title = f"🎉 인원체크! 결과발표! 🎉"
-      embed.description = ""
-      embed.add_field(name = f" ✅ 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
-      embed.add_field(name = f" 🟢 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
-		      
+		embed.title = f"🎉 인원체크! 결과발표! 🎉"
+		embed.description = ""
+	        embed.add_field(name = f"😍 행운아 ({num_cong}명)", value =  f"{', '.join(result_users)}")
+            if len(lose_user) != 0:
+         embed.add_field(name = f"😭 참여자 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
+		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
+		return await game_message.edit(embed=embed)
+		    
 	################ ?????????????? ################ 
 	@commands.command(name='!오빠')
 	async def brother1_(self, ctx):
