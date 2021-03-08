@@ -3566,16 +3566,16 @@ class mainCog(commands.Cog):
 			memo_data = args[args.find("*")+1:]
 
 		try:
-			num_cong = int(input_game_data[0])  # 뽑을 인원
+			num_cong = 1  # 뽑을 인원
 			if num_cong <= 0:
 				return await ctx.send(f'```추첨인원이 0보다 작거나 같습니다. 재입력 해주세요```')
 		except ValueError:
 			return await ctx.send('```추첨인원은 숫자로 입력 바랍니다\nex)!인원체크 1```')
 
-		if len(input_game_data) >= 2:
+		if len(input_game_data) >= 1:
 			waiting_time : int = 30
 			try:
-				waiting_time = int(input_game_data[1])  # 대기시간
+				waiting_time = int(input_game_data[0])  # 대기시간
 				if waiting_time <= 0 :
 					return await ctx.send(f'```대기시간이 0보다 작거나 같습니다. 재입력 해주세요```')
 			except ValueError:
