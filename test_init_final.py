@@ -3581,7 +3581,7 @@ class mainCog(commands.Cog):
 			except ValueError:
 				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!인원체크 1 60```')
 
-		reaction_emoji : list = ["✅",         "❌"]
+		reaction_emoji : list = ["✅","✅","A","B","C", "❌"]
 
 		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증을 하신다면 ✅를 클릭해주세요! ❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
