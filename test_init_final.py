@@ -3771,12 +3771,12 @@ class mainCog(commands.Cog):
 
 		lose_user = list(set(user_name_list)-set(result_users))
 
-		embed.title = f"🎉 럭키박스! 결과발표! 🎉"
+		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
+		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
 		embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"{', '.join(result_users)}")
 		if len(lose_user) != 0:
-		embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
-		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
+			embed.add_field(name = f"😭 낙점 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
 		return await game_message.edit(embed=embed)
 
 	################ ?????????????? ################ 
