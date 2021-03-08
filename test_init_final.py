@@ -3583,8 +3583,7 @@ class mainCog(commands.Cog):
 
 		reaction_emoji : list = ["✅", "🟢", "❌"]
 
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증은 ✅ 나 🟢 를 클릭해주세요!"
-														description = f"❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f"참여인증은 ✅ 나 🟢 를 클릭해주세요! ❌를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
