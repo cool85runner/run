@@ -3628,9 +3628,9 @@ class mainCog(commands.Cog):
 		del participant_users_by_first[del_index]
 
 		user_name_list_by_first : list = []
-			if participant_users_by_first.count > 0 :
-				for user in participant_users_by_first:
-					user_name_list_by_first.append(user.mention)
+		if participant_users_by_first.count > 0 :
+			for user in participant_users_by_first:
+				user_name_list_by_first.append(user.mention)
 
 		for _ in range(num_cong + 5):
 			random.shuffle(user_name_list_by_first)
@@ -3651,9 +3651,9 @@ class mainCog(commands.Cog):
 		del participant_users_by_second[del_index]
 
 		user_name_list_by_second : list = []
-			if participant_users_by_second.count > 0 :
-				for user in participant_users_by_second:
-					user_name_list_by_second.append(user.mention)
+		if participant_users_by_second.count > 0 :
+			for user in participant_users_by_second:
+				user_name_list_by_second.append(user.mention)
 
 		for _ in range(num_cong + 5):
 			random.shuffle(user_name_list_by_second)
@@ -3674,9 +3674,9 @@ class mainCog(commands.Cog):
 		del participant_users_by_stheyoungest[del_index]
 
 		user_name_list_by_stheyoungest : list = []
-			if participant_users_by_stheyoungest.count > 0 :
-				for user in participant_users_by_stheyoungest:
-					user_name_list_by_stheyoungest.append(user.mention)
+		if participant_users_by_stheyoungest.count > 0 :
+			for user in participant_users_by_stheyoungest:
+				user_name_list_by_stheyoungest.append(user.mention)
 
 		for _ in range(num_cong + 5):
 			random.shuffle(user_name_list_by_stheyoungest)
