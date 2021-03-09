@@ -3616,6 +3616,8 @@ class mainCog(commands.Cog):
 			await game_message.edit(embed=embed)
 			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
 
+
+
 	####### 1번으로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
@@ -3626,6 +3628,7 @@ class mainCog(commands.Cog):
 		del participant_users_by_first[del_index]
 
 		user_name_list_by_first : list = []
+		if participant_users_by_first.count > 0 :
 		for user in participant_users_by_first:
 			user_name_list_by_first.append(user.mention)
 
@@ -3648,6 +3651,7 @@ class mainCog(commands.Cog):
 		del participant_users_by_second[del_index]
 
 		user_name_list_by_second : list = []
+		if participant_users_by_first.count > 0 :
 		for user in participant_users_by_second:
 			user_name_list_by_second.append(user.mention)
 
@@ -3670,6 +3674,7 @@ class mainCog(commands.Cog):
 		del participant_users_by_stheyoungest[del_index]
 
 		user_name_list_by_stheyoungest : list = []
+		if participant_users_by_first.count > 0 :
 		for user in participant_users_by_stheyoungest:
 			user_name_list_by_stheyoungest.append(user.mention)
 
