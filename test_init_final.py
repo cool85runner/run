@@ -3607,7 +3607,7 @@ class mainCog(commands.Cog):
 			embed.title = f"😫 참여자가 없습니다! 실패! 😱"
 			embed.description = ""
 			await game_message.edit(embed=embed)
-			return await ctx.send(f"```1⃣ 2⃣ 3⃣ 클릭하지 않아서 게임이 취소되었습니다.!```")
+			return await ctx.send(f"```:one: :two: :three: 클릭하지 않아서 게임이 취소되었습니다.!```")
 
 	####### 1번으로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
