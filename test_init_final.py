@@ -3583,7 +3583,7 @@ class mainCog(commands.Cog):
 
 		reaction_emoji : list = ["1⃣", "2⃣", "❌"]
 
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f":hearts: 참여인증 방법 :hearts:\n 지휘에 따라 하단부에 1⃣ 을 1회만 클릭 해주세요!\n 지휘에 따라 하단부에 2⃣ 을 1회만 클릭 해주세요!\n \n 1⃣ 을 2회 클릭한 경우 참여로 인증되지 않습니다!\n 2⃣ 을 2회 클릭한 경우 참여로 인증되지 않습니다!\n ❌ 를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f":hearts: 참여인증 방법 :hearts:\n 지휘에 따라 하단부에 1⃣ 를 1회만 클릭 해주세요!\n 지휘에 따라 하단부에 2⃣ 를 1회만 클릭 해주세요!\n \n 1⃣ 를 2회 클릭한 경우 참여로 인증되지 않습니다!\n 2⃣ 를 2회 클릭한 경우 참여로 인증되지 않습니다!\n ❌ 를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
