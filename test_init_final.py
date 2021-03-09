@@ -3651,11 +3651,11 @@ class mainCog(commands.Cog):
 		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
 		if len(user_name_list_by_first) > 0:
-		embed.add_field(name = f" 1⃣ 클릭 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
+			embed.add_field(name = f" 1⃣ 클릭 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
 		if len(user_name_list_by_second) > 0:
-		embed.add_field(name = f" 2⃣ 클릭 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
+			embed.add_field(name = f" 2⃣ 클릭 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
 		if len(user_name_list_by_stheyoungest) > 0:
-		embed.add_field(name = f" 3⃣ 클릭 참가자 ({len(user_name_list_by_stheyoungest)}명)", value =  f"{', '.join(user_name_list_by_stheyoungest)}", inline=False)
+			embed.add_field(name = f" 3⃣ 클릭 참가자 ({len(user_name_list_by_stheyoungest)}명)", value =  f"{', '.join(user_name_list_by_stheyoungest)}", inline=False)
 		return await game_message.edit(embed=embed)
 
 	################ 럭키박스 ################ 
