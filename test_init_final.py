@@ -3581,9 +3581,9 @@ class mainCog(commands.Cog):
 			except ValueError:
 				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!인원체크 1 60```')
 
-		reaction_emoji : list = ["🅰", "🅱", "❌"]
+		reaction_emoji : list = [":regional_indicator_a:", ":regional_indicator_b:", "❌"]
 
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f":hearts: 참여인증 방법 :hearts:\n 지휘에 따라 하단부에 🅰 를 클릭 해주세요!\n 지휘에 따라 하단부에 🅱 를 클릭 해주세요!\n \n 🅰 를 2번 클릭한 경우 참여로 인증되지 않습니다!\n 🅱 를 2번 클릭한 경우 참여로 인증되지 않습니다!\n ❌ 를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
+		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f":hearts: 참여인증 방법 :hearts:\n 지휘에 따라 하단부에 :regional_indicator_a: 를 클릭 해주세요!\n 지휘에 따라 하단부에 :regional_indicator_b: 를 클릭 해주세요!\n \n :regional_indicator_a: 를 2번 클릭한 경우 참여로 인증되지 않습니다!\n :regional_indicator_b: 를 2번 클릭한 경우 참여로 인증되지 않습니다!\n ❌ 를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
 			color=0x00ff00
 			)
 		if memo_data != "":
