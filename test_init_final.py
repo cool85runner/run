@@ -3648,10 +3648,6 @@ class mainCog(commands.Cog):
 		for user in participant_users_by_stheyoungest:
 			user_name_list_by_stheyoungest.append(user.mention)
 
-		print(user_name_list_by_first)
-		print(user_name_list_by_second)
-		print(user_name_list_by_stheyoungest)
-
 		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
 
