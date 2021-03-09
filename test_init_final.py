@@ -3600,8 +3600,8 @@ class mainCog(commands.Cog):
 			embed.title = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time - i}초)"			
 			await game_message.edit(embed=embed)
 			cache_msg = await ctx.fetch_message(game_message.id)
-			if cache_msg.reactions[3].count >= 2:
-				tmp_users = await cache_msg.reactions[3].users().flatten()
+			if cache_msg.reactions[2].count >= 2:
+				tmp_users = await cache_msg.reactions[2].users().flatten()
 				for user in tmp_users:
 					if user.id == ctx.author.id:
 						embed.title = f"😫 인원체크! 취소! 😱"
@@ -3629,18 +3629,6 @@ class mainCog(commands.Cog):
 			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
 
 		if num_cong >= cache_msg.reactions[1].count-1:
-			embed.title = f"😫 인원체크! 취소! 😱"
-			embed.description = ""
-			await game_message.edit(embed=embed)		
-			return await ctx.send(f'```추첨인원이 참여인원과 같거나 많습니다. 재입력 해주세요```')
-
-		if cache_msg.reactions[2].count == 1:
-			embed.title = f"😫 인원체크! 실패! 😱"
-			embed.description = ""
-			await game_message.edit(embed=embed)
-			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
-
-		if num_cong >= cache_msg.reactions[2].count-1:
 			embed.title = f"😫 인원체크! 취소! 😱"
 			embed.description = ""
 			await game_message.edit(embed=embed)		
@@ -3690,33 +3678,10 @@ class mainCog(commands.Cog):
 
 		lose_user_by_second = list(set(user_name_list_by_second)-set(result_users_by_second))
 
-	####### 3번으로 체크한 사람들 #####
-		participant_users_by_stheyoungest = await cache_msg.reactions[2].users().flatten()
-
-		del_index : int = 0
-		for i, user in enumerate(participant_users_by_stheyoungest):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users_by_stheyoungest[del_index]
-
-		user_name_list_by_stheyoungest : list = []
-		for user in participant_users_by_stheyoungest:
-			user_name_list_by_stheyoungest.append(user.mention)
-
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list_by_stheyoungest)
-
-		result_users_by_stheyoungest = None
-		for _ in range(num_cong + 5):
-			result_users_by_stheyoungest = random.sample(user_name_list_by_stheyoungest, num_cong)
-
-		lose_user_by_stheyoungestd = list(set(user_name_list_by_stheyoungest)-set(result_users_by_stheyoungest))
-
 		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
 		embed.add_field(name = f" 1⃣ 클릭 참가자 ({len(user_name_list_by_first)}명)", value =  f"{', '.join(user_name_list_by_first)}", inline=False)
 		embed.add_field(name = f" 2⃣ 클릭 참가자 ({len(user_name_list_by_second)}명)", value =  f"{', '.join(user_name_list_by_second)}", inline=False)
-		embed.add_field(name = f" 3⃣ 클릭 참가자 ({len(user_name_list_by_stheyoungest)}명)", value =  f"{', '.join(user_name_list_by_stheyoungest)}", inline=False)
 		return await game_message.edit(embed=embed)
 
 	################ 럭키박스 ################ 
