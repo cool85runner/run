@@ -3604,10 +3604,10 @@ class mainCog(commands.Cog):
 			await asyncio.sleep(1)
 
 		if (cache_msg.reactions[0].count + cache_msg.reactions[1].count + cache_msg.reactions[2].count) == 3:
-			embed.title = f"😫 참여자가 없습니다! 실패! 😱"
+			embed.title = f"😫 참여자가 없습니다!!!! 😱\n \n😫 인원체크 다시 하세요 😱"
 			embed.description = ""
 			await game_message.edit(embed=embed)
-			return await ctx.send(f"```:one: :two: :three: 클릭하지 않아서 게임이 취소되었습니다.!```")
+			return await ctx.send(f"```클릭(체크)하지 않아서 게임이 취소되었습니다.!```")
 
 	####### 1번으로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
