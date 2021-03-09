@@ -3632,14 +3632,14 @@ class mainCog(commands.Cog):
 			for user in participant_users_by_first:
 				user_name_list_by_first.append(user.mention)
 
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list_by_first)
+			for _ in range(num_cong + 5):
+				random.shuffle(user_name_list_by_first)
 
-		result_users_by_first = None
-		for _ in range(num_cong + 5):
-			result_users_by_first = random.sample(user_name_list_by_first, num_cong)
+			result_users_by_first = None
+			for _ in range(num_cong + 5):
+				result_users_by_first = random.sample(user_name_list_by_first, num_cong)
 
-		lose_user_by_first = list(set(user_name_list_by_first)-set(result_users_by_first))
+			lose_user_by_first = list(set(user_name_list_by_first)-set(result_users_by_first))
 
 	####### 2번으로 체크한 사람들 #####
 		participant_users_by_second = await cache_msg.reactions[1].users().flatten()
@@ -3655,14 +3655,14 @@ class mainCog(commands.Cog):
 			for user in participant_users_by_second:
 				user_name_list_by_second.append(user.mention)
 
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list_by_second)
+			for _ in range(num_cong + 5):
+				random.shuffle(user_name_list_by_second)
 
-		result_users_by_second = None
-		for _ in range(num_cong + 5):
-			result_users_by_second = random.sample(user_name_list_by_second, num_cong)
+			result_users_by_second = None
+			for _ in range(num_cong + 5):
+				result_users_by_second = random.sample(user_name_list_by_second, num_cong)
 
-		lose_user_by_second = list(set(user_name_list_by_second)-set(result_users_by_second))
+			lose_user_by_second = list(set(user_name_list_by_second)-set(result_users_by_second))
 
 	####### 3번으로 체크한 사람들 #####
 		participant_users_by_stheyoungest = await cache_msg.reactions[2].users().flatten()
@@ -3678,14 +3678,14 @@ class mainCog(commands.Cog):
 			for user in participant_users_by_stheyoungest:
 				user_name_list_by_stheyoungest.append(user.mention)
 
-		for _ in range(num_cong + 5):
-			random.shuffle(user_name_list_by_stheyoungest)
+			for _ in range(num_cong + 5):
+				random.shuffle(user_name_list_by_stheyoungest)
 
-		result_users_by_stheyoungest = None
-		for _ in range(num_cong + 5):
-			result_users_by_stheyoungest = random.sample(user_name_list_by_stheyoungest, num_cong)
+			result_users_by_stheyoungest = None
+			for _ in range(num_cong + 5):
+				result_users_by_stheyoungest = random.sample(user_name_list_by_stheyoungest, num_cong)
 
-		lose_user_by_stheyoungestd = list(set(user_name_list_by_stheyoungest)-set(result_users_by_stheyoungest))
+			lose_user_by_stheyoungestd = list(set(user_name_list_by_stheyoungest)-set(result_users_by_stheyoungest))
 
 		embed.title = f"🎉 인원체크! 결과발표! 🎉"
 		embed.description = ""
