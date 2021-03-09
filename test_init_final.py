@@ -3616,8 +3616,6 @@ class mainCog(commands.Cog):
 			await game_message.edit(embed=embed)
 			return await ctx.send(f"```참여자가 없어 게임이 취소되었습니다.!```")
 
-
-
 	####### 1번으로 체크한 사람들 #####
 		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
 
