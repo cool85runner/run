@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-################ Server Ver. 27 (2021. 2. 17.) #####################
+################ Server Ver. 28 (2021. 6. 23.) #####################
 
 import sys, os, ctypes
 import asyncio, discord, aiohttp
@@ -356,7 +356,7 @@ def init():
 		fi = []
 
 	tmp_killtime = datetime.datetime.now().replace(hour=int(5), minute=int(0), second = int(0))
-	kill_Time = datetime.datetime.now()
+	kill_Time = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 
 	if tmp_killtime < kill_Time :
 		kill_Time = tmp_killtime + datetime.timedelta(days=int(1))
@@ -638,7 +638,7 @@ async def dbSave():
 	except Exception as e :
 		print ('save error!!')
 		print(e.args[1]['message']) # output: This repository is empty.
-		errortime = datetime.datetime.now()
+		errortime = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 		print (errortime)
 		pass
 
@@ -832,7 +832,7 @@ async def init_data_list(filename, first_line : str = "-----------"):
 	except Exception as e :
 		print ('save error!!')
 		print(e.args[1]['message']) # output: This repository is empty.
-		errortime = datetime.datetime.now()
+		errortime = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 		print (errortime)
 		pass
 
@@ -849,7 +849,7 @@ async def data_list_Save(filename, first_line : str = "-----------",  save_data 
 	except Exception as e :
 		print ('save error!!')
 		print(e.args[1]['message']) # output: This repository is empty.
-		errortime = datetime.datetime.now()
+		errortime = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 		print (errortime)
 		pass
 
@@ -1406,12 +1406,14 @@ class mainCog(commands.Cog):
 			command_list += ','.join(command[12]) + ' [뽑을인원수] [아이디1] [아이디2]...\n'     #!사다리
 			command_list += ','.join(command[27]) + ' [아이디1] [아이디2]...(최대 12명)\n'     #!경주
 			command_list += ','.join(command[41]) + ' [추첨인원] (대기시간/초) *(메모)\n'    #!럭키박스
-			command_list += ','.join(command[43]) + ' (대기시간/초) *(메모)\n'    #!인원체크
 			command_list += ','.join(command[35]) + ' [판매금액] (거래소세금)\n'     #!수수료
 			command_list += ','.join(command[36]) + ' [거래소금액] [실거래금액] (거래소세금)\n'     #!페이백
 			command_list += ','.join(command[13]) + ' [아이디]\n'     #!정산
 			command_list += ','.join(command[14]) + ' 또는 ' + ','.join(command[14]) + ' 0000, 00:00\n'     #!보스일괄
 			command_list += ','.join(command[40]) + ' 또는 ' + ','.join(command[40]) + ' 0000, 00:00\n'     #!멍일괄
+			command_list += ','.join(command[43]) + f' [00:00:00 : 보스명(엔터) ...]\n※ 보스탐 결과 복붙 가능\nex){command[43][0]} + 12:34:00 : {bossData[0][0]}\n+ 10:56:00 : {bossData[1][0]}\n+ (+1d) 12:12:00 : {bossData[2][0]}...\n'     #!컷등록
+			command_list += ','.join(command[44]) + f' [00:00:00 : 보스명(엔터) ...]\n※ [00:00:00 보스명] 형태로 여러줄(엔터)로 구분하여 등록\nex){command[44][0]} + 12:34:00 : {bossData[0][0]}\n10:56:00 : {bossData[1][0]}\n+ (+1d) 12:12:00 : {bossData[2][0]}...\n'     #!예상등록
+			command_list += ','.join(command[45]) + ' [시간(00:00)] [추가시간(숫자)] [보스명1] [보스명2] [보스명3] ...\n'     #!추가등록
 			command_list += ','.join(command[15]) + '\n'     #!q
 			command_list += ','.join(command[16]) + ' [할말]\n'     #!v
 			command_list += ','.join(command[17]) + '\n'     #!리젠
@@ -1459,7 +1461,7 @@ class mainCog(commands.Cog):
 	async def setting_(self, ctx):	
 		#print (ctx.message.channel.id)
 		if ctx.message.channel.id == basicSetting[7]:
-			setting_val = '보탐봇버전 : Server Ver. 27 (2021. 2. 17.)\n'
+			setting_val = '보탐봇버전 : Server Ver. 28 (2021. 6. 23.)\n'
 			if basicSetting[6] != "" :
 				setting_val += '음성채널 : ' + self.bot.get_channel(basicSetting[6]).name + '\n'
 			setting_val += '텍스트채널 : ' + self.bot.get_channel(basicSetting[7]).name +'\n'
@@ -3543,121 +3545,6 @@ class mainCog(commands.Cog):
 		contents = repo.get_contents("test_setting.ini")
 		repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
 		return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
-								  
-	################ 인원체크 ################ 
-	@commands.command(name=command[43][0], aliases=command[43][1:])
-	async def command_randombox_gameeee(self, ctx : commands.Context, *, args : str = None):
-		if basicSetting[18] != "" and ctx.message.channel.id == basicSetting[7]:
-			return
-
-		if ctx.message.channel.id != basicSetting[7] and ctx.message.channel.id != basicSetting[18]:
-			return
-
-		if not args:
-			return await ctx.send(f'```명령어 (대기시간/초) *(메모) 형태로 입력해주시기 바랍나다.```')
-
-		memo_data : str = ""
-		waiting_time : int = 30
-
-		if args.find("*") == -1:
-			input_game_data = args.split()
-		else:
-			input_game_data = args[:args.find("*")-1].split()
-			memo_data = args[args.find("*")+1:]
-
-		if len(input_game_data) >= 1:
-			waiting_time : int = 30
-			try:
-				waiting_time = int(input_game_data[0])  # 대기시간
-				if waiting_time <= 0 :
-					return await ctx.send(f'```대기시간이 0보다 작거나 같습니다. 재입력 해주세요```')
-			except ValueError:
-				return await ctx.send(f'```대기시간(초)는 숫자로 입력 바랍니다\nex)!인원체크 1 60```')
-
-		reaction_emoji : list = ["1⃣", "2⃣", "3⃣", "❌"]
-
-		embed = discord.Embed(title  = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time}초)", description = f":hearts: 참여인증 방법 :hearts:\n 지휘에 따라 하단부에 1⃣ 번을 1회만 클릭 해주세요!\n 지휘에 따라 하단부에 2⃣ 번을 1회만 클릭 해주세요!\n 지휘에 따라 하단부에 3⃣ 번을 1회만 클릭 해주세요!\n \n 1⃣ 번을 2회 클릭한 경우 참여로 인증되지 않습니다!\n 2⃣ 번을 2회 클릭한 경우 참여로 인증되지 않습니다!\n 3⃣ 번을 2회 클릭한 경우 참여로 인증되지 않습니다!\n ❌ 를 누를 경우 참여로 인증되지 않습니다! ", timestamp =datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=int(basicSetting[0])))),
-			color=0x00ff00
-			)
-		if memo_data != "":
-			embed.add_field(name = "📜 메모", value =  f"```{memo_data}```", inline=False)
-
-		game_message : discord.message.Message = await ctx.send(embed = embed)
-
-		for emoji in reaction_emoji:
-			await game_message.add_reaction(emoji)
-		
-		cache_msg = await ctx.fetch_message(game_message.id)
-
-		for i in range(waiting_time):
-			embed.title = f"📦 인원체크! 중 입니다! (잔여시간 : {waiting_time - i}초)"			
-			await game_message.edit(embed=embed)
-			cache_msg = await ctx.fetch_message(game_message.id)
-			if cache_msg.reactions[3].count >= 2:
-				tmp_users = await cache_msg.reactions[3].users().flatten()
-				for user in tmp_users:
-					if user.id == ctx.author.id:
-						embed.title = f"😫 인원체크! 취소! 😱"
-						embed.description = ""
-						await game_message.edit(embed=embed)	
-						return await ctx.send(f"```추첨이 취소되었습니다.!```")
-			await asyncio.sleep(1)
-
-		if (cache_msg.reactions[0].count + cache_msg.reactions[1].count + cache_msg.reactions[2].count) == 3:
-			embed.title = f"😫 참여자가 없습니다!!!! 😱\n \n😫 인원체크 다시 하세요 😱"
-			embed.description = ""
-			await game_message.edit(embed=embed)
-			return await ctx.send(f"```클릭(체크)하지 않아서 게임이 취소되었습니다.!```")
-
-	####### 1번으로 체크한 사람들 #####
-		participant_users_by_first = await cache_msg.reactions[0].users().flatten()
-
-		del_index : int = 0
-		for i, user in enumerate(participant_users_by_first):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users_by_first[del_index]
-
-		user_name_list_by_first : list = []
-		for user in participant_users_by_first:
-			user_name_list_by_first.append(user.mention)
-
-	####### 2번으로 체크한 사람들 #####
-		participant_users_by_second = await cache_msg.reactions[1].users().flatten()
-
-		del_index : int = 0
-		for i, user in enumerate(participant_users_by_second):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users_by_second[del_index]
-
-		user_name_list_by_second : list = []
-		for user in participant_users_by_second:
-			user_name_list_by_second.append(user.mention)
-
-	####### 3번으로 체크한 사람들 #####
-		participant_users_by_stheyoungest = await cache_msg.reactions[2].users().flatten()
-
-		del_index : int = 0
-		for i, user in enumerate(participant_users_by_stheyoungest):
-			if self.bot.user.id == user.id:
-				del_index = i
-		del participant_users_by_stheyoungest[del_index]
-
-		user_name_list_by_stheyoungest : list = []
-		for user in participant_users_by_stheyoungest:
-			user_name_list_by_stheyoungest.append(user.mention)
-
-		embed.title = f"🎉 인원체크! 결과발표! 🎉"
-		embed.description = ""
-
-		if len(user_name_list_by_first) != 0:
-			embed.add_field(name = f" 1⃣ 클릭 참가자 ({len(user_name_list_by_first)}명)", value=f"{', '.join(user_name_list_by_first)}", inline=False)
-		if len(user_name_list_by_second) != 0:
-			embed.add_field(name = f" 2⃣ 클릭 참가자 ({len(user_name_list_by_second)}명)", value=f"{', '.join(user_name_list_by_second)}", inline=False)
-		if len(user_name_list_by_stheyoungest) != 0:
-			embed.add_field(name = f" 3⃣ 클릭 참가자 ({len(user_name_list_by_stheyoungest)}명)", value=f"{', '.join(user_name_list_by_stheyoungest)}", inline=False)
-		return await game_message.edit(embed=embed)
 
 	################ 럭키박스 ################ 
 	@commands.command(name=command[41][0], aliases=command[41][1:])
@@ -3758,13 +3645,210 @@ class mainCog(commands.Cog):
 
 		lose_user = list(set(user_name_list)-set(result_users))
 
-		embed.title = f"🎉 ! 결과발표! 🎉"
+		embed.title = f"🎉 럭키박스! 결과발표! 🎉"
 		embed.description = ""
 		embed.add_field(name = f"👥 참가자 ({len(user_name_list)}명)", value =  f"{', '.join(user_name_list)}", inline=False)
 		embed.add_field(name = f"😍 당첨 ({num_cong}명)", value =  f"{', '.join(result_users)}")
 		if len(lose_user) != 0:
-			embed.add_field(name = f"😭 낙점 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
+			embed.add_field(name = f"😭 낙첨 ({len(lose_user)}명)", value =  f"{', '.join(lose_user)}")
 		return await game_message.edit(embed=embed)
+
+	################ 컷등록 ################ 
+	@commands.command(name=command[43][0], aliases=command[43][1:])
+	async def multi_boss_cut(self, ctx, *, args : str = None):
+		if ctx.message.channel.id != basicSetting[7]:
+			return
+
+		if not args:
+			return await ctx.send('```보스타임 정보를 입력해주세요```', tts=False)
+
+		boss_data_list : list = args.split("\n")
+		boss_data_dict : dict = {}
+		result_boss_name : list = []
+
+		for boss_data in boss_data_list:
+			tmp_boss_name = boss_data[boss_data.rfind(": ")+1:].strip()
+			if tmp_boss_name.find(" ") != -1:
+				tmp_boss_name = tmp_boss_name[:tmp_boss_name.find(" ")].strip()
+			tmp_boss_time = boss_data[:boss_data.rfind(" : ")].strip()
+			try:
+				if list(tmp_boss_time).count(":") > 1:
+					tmp_hour = int(tmp_boss_time[tmp_boss_time.find(":")-2:tmp_boss_time.find(":")])
+					tmp_minute = int(tmp_boss_time[tmp_boss_time.find(":")+1:tmp_boss_time.rfind(":")])
+					tmp_second = int(tmp_boss_time[tmp_boss_time.rfind(":")+1:])
+				else:
+					tmp_hour = int(tmp_boss_time[tmp_boss_time.find(":")-2:tmp_boss_time.find(":")])
+					tmp_minute = int(tmp_boss_time[tmp_boss_time.rfind(":")+1:])
+					tmp_second = 0
+				if tmp_hour > 23 or tmp_hour < 0 or tmp_minute > 60 or tmp_second > 60:
+					return await ctx.send(f"**[{tmp_boss_name}]**의 올바른 시간(00:00:00 ~ 23:59:59)을 입력해주세요.")
+			except:
+				return await ctx.send(f"**[{tmp_boss_name}]**의 올바른 시간(00:00:00 ~ 23:59:59)을 입력해주세요. ")
+
+			if "@" != boss_data[0]:
+				boss_data_dict[tmp_boss_name] = {"hour" : tmp_hour, "minute" : tmp_minute, "second" : tmp_second}
+
+		for i in range(bossNum):
+			if bossData[i][0] in boss_data_dict:
+				curr_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = tmp_now.replace(hour=int(boss_data_dict[bossData[i][0]]["hour"]), minute=int(boss_data_dict[bossData[i][0]]["minute"]), second=int(boss_data_dict[bossData[i][0]]["second"]))
+					
+				bossFlag[i] = False
+				bossFlag0[i] = False
+				bossMungFlag[i] = False
+				bossMungCnt[i] = 0
+
+				if tmp_now > now2 :
+					tmp_now = tmp_now + datetime.timedelta(days=int(-1))
+					
+				if tmp_now < now2 : 
+					deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+					while now2 > tmp_now :
+						tmp_now = tmp_now + deltaTime
+						bossMungCnt[i] = bossMungCnt[i] + 1
+					now2 = tmp_now
+					bossMungCnt[i] = bossMungCnt[i] - 1
+				else :
+					now2 = now2 + datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+							
+				tmp_bossTime[i] = bossTime[i] = nextTime = now2
+				tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+				tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+				if  curr_now + datetime.timedelta(minutes=int(basicSetting[1])) <= tmp_bossTime[i] < curr_now + datetime.timedelta(minutes=int(basicSetting[3])):
+					bossFlag0[i] = True
+				if tmp_bossTime[i] < curr_now + datetime.timedelta(minutes=int(basicSetting[1])):
+					bossFlag[i] = True
+					bossFlag0[i] = True
+				result_boss_name.append(bossData[i][0])
+
+		return await ctx.send(f"```[{', '.join(result_boss_name)}] 보스 [컷등록]이 완료되었습니다. [{command[22][0]}]으로 등록시간을 확인해보세요```", tts=False)
+
+	################ 예상등록 ################ 
+	@commands.command(name=command[44][0], aliases=command[44][1:])
+	async def multi_boss_predict(self, ctx, *, args : str = None):
+		if ctx.message.channel.id != basicSetting[7]:
+			return
+			
+		if not args:
+			return await ctx.send('```보스타임 정보를 입력해주세요```', tts=False)
+
+		boss_data_list : list = args.split("\n")
+		boss_data_dict : dict = {}
+		result_boss_name : list = []
+
+		for boss_data in boss_data_list:
+			tmp_boss_name = boss_data[boss_data.rfind(": ")+1:].strip()
+			if tmp_boss_name.find(" ") != -1:
+				tmp_boss_name = tmp_boss_name[:tmp_boss_name.find(" ")].strip()
+			tmp_boss_time = boss_data[:boss_data.rfind(" : ")].strip()
+			try:
+				if list(tmp_boss_time).count(":") > 1:
+					tmp_hour = int(tmp_boss_time[tmp_boss_time.find(":")-2:tmp_boss_time.find(":")])
+					tmp_minute = int(tmp_boss_time[tmp_boss_time.find(":")+1:tmp_boss_time.rfind(":")])
+					tmp_second = int(tmp_boss_time[tmp_boss_time.rfind(":")+1:])
+				else:
+					tmp_hour = int(tmp_boss_time[tmp_boss_time.find(":")-2:tmp_boss_time.find(":")])
+					tmp_minute = int(tmp_boss_time[tmp_boss_time.rfind(":")+1:])
+					tmp_second = 0
+				if tmp_hour > 23 or tmp_hour < 0 or tmp_minute > 60 or tmp_second > 60:
+					return await ctx.send(f"**[{tmp_boss_name}]**의 올바른 시간(00:00:00 ~ 23:59:59)을 입력해주세요. ")
+			except:
+				return await ctx.send(f"**[{tmp_boss_name}]**의 올바른 시간(00:00:00 ~ 23:59:59)을 입력해주세요. ")
+
+			if "@" != boss_data[0]:
+				boss_data_dict[tmp_boss_name] = {"hour" : tmp_hour, "minute" : tmp_minute, "second" : tmp_second}
+
+		for i in range(bossNum):
+			if bossData[i][0] in boss_data_dict:
+				now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = tmp_now.replace(hour=int(boss_data_dict[bossData[i][0]]["hour"]), minute=int(boss_data_dict[bossData[i][0]]["minute"]), second=int(boss_data_dict[bossData[i][0]]["second"]))
+					
+				bossFlag[i] = False
+				bossFlag0[i] = False
+				bossMungFlag[i] = False
+				bossMungCnt[i] = 0
+
+				if tmp_now < now2 :
+					tmp_now = tmp_now + datetime.timedelta(days=int(1))
+							
+				tmp_bossTime[i] = bossTime[i] = nextTime = tmp_now
+				tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+				tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+
+				if  now2 + datetime.timedelta(minutes=int(basicSetting[1])) <= tmp_bossTime[i] < now2 + datetime.timedelta(minutes=int(basicSetting[3])):
+					bossFlag0[i] = True
+				if tmp_bossTime[i] < now2 + datetime.timedelta(minutes=int(basicSetting[1])):
+					bossFlag[i] = True
+					bossFlag0[i] = True
+				result_boss_name.append(bossData[i][0])
+
+		return await ctx.send(f"```[{', '.join(result_boss_name)}] 보스 [예상등록]이 완료되었습니다. [{command[22][0]}]으로 등록시간을 확인해보세요```", tts=False)
+
+	################ 추가등록 ################ 
+	@commands.command(name=command[45][0], aliases=command[45][1:])
+	async def multi_boss_delta_add(self, ctx, *, args : str = None):
+		if ctx.message.channel.id != basicSetting[7]:
+			return
+
+		if not args:
+			return await ctx.send(f"```[{command[45][0]}] [시간(00:00)] [추가시간(숫자)] [보스명1] [보스명2] [보스명3] ... 양식으로 입력해주세요```", tts=False)
+
+		input_data_list : list = []
+		input_data_list = args.split()
+		result_boss_name : list = []
+
+		if len(input_data_list) < 3:
+			return await ctx.send(f"```[{command[45][0]}] [시간(00:00)] [추가시간(숫자)] [보스명1] [보스명2] [보스명3] ... 양식으로 입력해주세요```", tts=False)
+
+		try:
+			input_hour = int(input_data_list[0][:input_data_list[0].find(":")])
+			input_minute = int(input_data_list[0][input_data_list[0].find(":")+1:])
+			input_delta_time = int(input_data_list[1])
+		except:
+			return await ctx.send(f"시간 및 추가시간은 숫자로 입력해주세요. ")
+
+		boss_name_list : list = input_data_list[2:]
+
+		if input_hour > 23 or input_hour < 0 or input_minute > 60:
+			return await ctx.send(f"올바른 시간(00:00:00 ~ 23:59:59)을 입력해주세요.")
+
+		for i in range(bossNum):
+			if bossData[i][0] in boss_name_list:
+				curr_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+				tmp_now = tmp_now.replace(hour=int(input_hour), minute=int(input_minute), second=0) + datetime.timedelta(hours=int(input_delta_time))
+					
+				bossFlag[i] = False
+				bossFlag0[i] = False
+				bossMungFlag[i] = False
+				bossMungCnt[i] = 0
+
+				if tmp_now < now2 : 
+					deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+					while now2 > tmp_now :
+						tmp_now = tmp_now + deltaTime
+						bossMungCnt[i] = bossMungCnt[i] + 1
+					now2 = tmp_now
+					bossMungCnt[i] = bossMungCnt[i] - 1
+				else :
+					now2 = tmp_now
+							
+				tmp_bossTime[i] = bossTime[i] = nextTime = now2
+				tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+				tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+
+				if  curr_now + datetime.timedelta(minutes=int(basicSetting[1])) <= tmp_bossTime[i] < curr_now + datetime.timedelta(minutes=int(basicSetting[3])):
+					bossFlag0[i] = True
+				if tmp_bossTime[i] < curr_now + datetime.timedelta(minutes=int(basicSetting[1])):
+					bossFlag[i] = True
+					bossFlag0[i] = True
+				result_boss_name.append(bossData[i][0])
+					
+		return await ctx.send(f"```[{', '.join(list(result_boss_name))}] 보스 [추가등록]이 완료되었습니다. [{command[22][0]}]으로 등록시간을 확인해보세요```", tts=False)
 
 	################ ?????????????? ################ 
 	@commands.command(name='!오빠')
